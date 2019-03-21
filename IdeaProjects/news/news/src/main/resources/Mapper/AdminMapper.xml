@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.news.dao.AdminDao">
+    <resultMap id="AdminResultMap" type="com.example.news.domain.Admin">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="admin_name" jdbcType="VARCHAR" property="adminName"/>
+        <result column="pass_word" jdbcType="VARCHAR" property="passWord"/>
+    </resultMap>
+    <sql id="baseSql">
+        id,adminName,password
+    </sql>
+    <select id="isAdminExist"  resultType="com.example.news.domain.Admin">
+        SELECT
+        <include refid="baseSql"/>
+        FROM
+        admin
+        <where>
+            <if test="_parameter != null ">
+                AND adminName = #{adminName}
+            </if>
+        </where>
+    </select>
+
+    <select id="login" resultMap="AdminResultMap">
+        select adminName,password from admin where adminName=#{adminName} and password=#{password}
+    </select>
+</mapper>

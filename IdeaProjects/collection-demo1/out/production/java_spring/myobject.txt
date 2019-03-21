@@ -1,0 +1,3 @@
+service = com.practice.service.UserServiceImpl
+myUserDao = com.practice.dao.UserDaoImpl
+service.userDao = myUserDao
